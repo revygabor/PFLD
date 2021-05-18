@@ -32,6 +32,7 @@ def main(args):
     cap = cv2.VideoCapture(args.video_path)
     
     frame_index = 0
+    start_time = time.time() 
 
     while(cap.isOpened()):
       ret, frame = cap.read()
@@ -88,9 +89,15 @@ def main(args):
 
       # im.show()
       im.save(f'{res_dir_path}{os.sep}{frame_index:05}.jpg')
+      
+      if (frame_index+1) == 80:
+        print(f'{frame_index / (time.time()-start_time)} FPS')
+      
       frame_index += 1
     
     cap.release()
+    print(f'{frame_index / (time.time()-start_time)} FPS')
+    print('Done.')
 
 
 def parse_args():
